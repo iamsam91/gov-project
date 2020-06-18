@@ -1,7 +1,6 @@
 package com.gov.services.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -16,19 +15,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestClientException;
 
 import com.gov.GovProjectApplication;
-import com.gov.services.IBusinessLogicManager;
-import com.gov.services.IUserManager;
+import com.gov.services.BusinessLogicManager;
+import com.gov.services.UserManager;
 import com.gov.services.entities.User;
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = GovProjectApplication.class)
-public class BusinessLogicImplTest {
+public class BusinessLogicManagerTest {
 
 	@Autowired
-	private IBusinessLogicManager blManager;
+	private BusinessLogicManager blManager;
 	@Autowired
-	private IUserManager userManager;
+	private UserManager userManager;
 	
 	public User[] fakeUsers() {
 		User paul = new User();
@@ -76,16 +75,10 @@ public class BusinessLogicImplTest {
 		return users;
 	}
 	
-	@Test
-	public void testGetUsers() {
-		// test there users returned
-		assertNotNull(userManager.getUsers());
-	}
-
 	@BeforeEach
 	public void reset() {
 		Mockito.reset(userManager);
-	}
+	}	
 	
 	@Test
 	public void testGetLondoners() {
@@ -112,8 +105,9 @@ public class BusinessLogicImplTest {
 		
 		Mockito.when(userManager.getUsers()).thenThrow(RestClientException.class);
 		try {
-			User[] londonUsers = blManager.getLondoners();
-			fail();
+			blManager.getLondoners();
+			// Should not get to this fail
+			fail("Failed to throw server error passed from user manager");
 		} catch (Exception ex) {
 			// Exception correctly thrown
 			System.out.print(ex.getMessage());

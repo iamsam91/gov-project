@@ -1,7 +1,13 @@
 package com.gov.services.entities;
 
+/**
+ * @author Sam Payne
+ *
+ * Client User class to enable use of gov API
+ */
 public class User {
 
+//  Example user from API docs
 //	{
 //	    "id": 1,
 //	    "first_name": "Maurise",

@@ -22,9 +22,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	
-	//compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-	//compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
-	
 	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
 	compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.4.1'
 	
@@ -41,9 +38,4 @@ dependencies {
 test {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
-}
-
-asciidoctor {
-	inputs.dir snippetsDir
-	dependsOn test
 }

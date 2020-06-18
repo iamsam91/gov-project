@@ -10,22 +10,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClientException;
 
-import com.gov.services.IBusinessLogicManager;
+import com.gov.services.BusinessLogicManager;
 import com.gov.services.entities.User;
 
 
+/**
+ * Main Controller class for API. 
+ * 
+ * @author Sam Payne
+ */
 @RestController
 @RequestMapping("/api")
 public class MainController {
 
 	Logger logger = LoggerFactory.getLogger(getClass().getPackage().getName());
 	@Autowired
-	IBusinessLogicManager mainManager;
+	BusinessLogicManager mainManager;
 	
-	// returns people who are listed as either living in London, or whose current coordinates are within 50 miles of London.
-	
+	/**
+	 * @return people who are listed as either living in London, or whose current coordinates are within 50 miles of London.
+	 */
 	@GetMapping(value = "/users/london")
-	public ResponseEntity<User[]> cityUsers() {
+	public ResponseEntity<User[]> londonUsers() {
 		try {
 			User[] users = mainManager.getLondoners();
 			logger.info("Succesfully retrieved users!");
